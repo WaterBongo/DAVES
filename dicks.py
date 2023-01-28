@@ -47,9 +47,15 @@ async def on_message(ctx:commands.Context):
 @bot.event
 async def on_message_edit(beforeCtx, afterCtx:commands.Context):
     if (afterCtx.guild == None):
-        if (afterCtx.content == "dick"):
-            await triggerSecurity(afterCtx)
-        print(afterCtx.content)
+        if (afterCtx.author.id == afterCtx.channel.me.id and not canSendMessages):
+            await afterCtx.delete()
+        else:
+            if (afterCtx.content == "dick"):
+                await triggerSecurity(afterCtx)
+            if (detectionMode.logMessages):
+                print(afterCtx.content)
+                with open('./messageLog.txt', 'a') as fd:
+                    fd.write(afterCtx.author.name + '#' + str(afterCtx.author.discriminator) + ' : ' + afterCtx.content + ' : ' + str(utc.localize(datetime.now())) +'\n')
 
 @bot.command()
 async def ping(ctx):
