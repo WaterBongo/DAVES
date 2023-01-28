@@ -2,10 +2,18 @@ from icalendar import Calendar, Event
 from datetime import datetime
 from pytz import UTC # timezone
 
-with open('./Family.txt', 'r') as fd:
+with open('./calendar.ics', 'r') as fd:
     calendar = fd.read()
 
 cal = Calendar()
-cal.from_ical(calendar)
-print(calendar)
-print(cal.property_items())
+cal = cal.from_ical(calendar)
+
+for component in cal.walk():
+   if component.name == "VEVENT":
+        print("\n\n\n")
+        print(component.get("name"))
+        print(component.get("description"))
+        print(component.get("organizer"))
+        print(component.get("location"))
+        print(component.decoded("dtstart"))
+        print(component.decoded("dtend"))
