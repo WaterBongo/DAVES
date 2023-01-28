@@ -24,7 +24,13 @@ class SecurityLevel():
 
 canSendMessages = True
 
-detectionMode = SecurityLevel(True, True, False, False, True, True)
+Alert = SecurityLevel(True, True, True, True, True, True)
+Slient = SecurityLevel(True, True, False, False, False, False)
+Standby = SecurityLevel(False, False, False, False, False, False)
+Custom = SecurityLevel(True, False, False, False, True, True)
+
+
+detectionMode = Custom
 
 bot = commands.Bot(command_prefix='>', self_bot=True)
 
