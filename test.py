@@ -28,7 +28,7 @@ def check_time(time, cal):
 def available_times(day, cal):
     _dict = dict()
     
-    d1 = utc.localize(datetime.now())      
+    d1 = utc.localize(datetime.now())
     d1 = d1.replace(day=day, hour=0, minute=0,second=0,microsecond=0)
     
     for x in range(0,24):
@@ -93,23 +93,28 @@ for x in _list:
     temp = list()
     for y in x:        
         if (y.minute == 30 or y.minute == 0):
-            print(y)
             if (first == True):
                 temp.append(y)
             else:
+                print(len(finalList))
                 try:
+                    print(finalList.index(y))
                     if (finalList.index(y)):
                         temp.append(y)
+                        print('yes')
                 except ValueError:
                     pass
     
-    finalList = temp[:]
+    finalList.clear()
+    for x in temp:
+        finalList.append(x)
+        print(x)
     first = False
 
 d1 = utc.localize(datetime.now())      
 
-scheduledTime = d1.replace(hour=int(input('Hour Chosen: ')), minute=int(input('Minute Chosen: ')),second=0,microsecond=0)
-
+scheduledTime =  d1.replace(hour=int(input('Hour Chosen: ')), minute=int(input('Minute Chosen: ')),second=0,microsecond=0)
+print(_list[0].index(scheduledTime))
 
 print('\n\n\n\n\n\n')
 for x in finalList:
