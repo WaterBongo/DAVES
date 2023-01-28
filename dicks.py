@@ -24,7 +24,7 @@ class SecurityLevel():
 
 canSendMessages = True
 
-detectionMode = SecurityLevel(True, True, False, False, True)
+detectionMode = SecurityLevel(True, True, False, False, True, True)
 
 bot = commands.Bot(command_prefix='>', self_bot=True)
 
@@ -38,7 +38,7 @@ async def on_message(ctx:commands.Context):
         if (ctx.author.id == ctx.channel.me.id and not canSendMessages):
             await ctx.delete()
         else:
-            if (ctx.content == "dick"):
+            if (ctx.content == "balls"):
                 await triggerSecurity(ctx)
             if (detectionMode.logMessages):
                 print(ctx.content)
@@ -81,7 +81,6 @@ async def triggerSecurity(ctx:commands.Context):
 
     if (detectionMode.leaveChat):
         closeChannel(ctx)
-    
 
 def block(ctx):
     headers = {"authorization": token, "user-agent": "Mozilla/5.0"}
