@@ -1,9 +1,9 @@
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from transformers import AutoModelForSequenceClassification, TextClassificationPipeline
 
-tokenizer = AutoTokenizer.from_pretrained("unitary/toxic-bert")
+modele = AutoModelForSequenceClassification.from_pretrained("unitary/toxic-bert")
+pipeline = TextClassificationPipeline(model=modele, device=0)
 
-model = AutoModelForSequenceClassification.from_pretrained("unitary/toxic-bert")
-#predict a message
-message = "I hate you"
-segs = model.predict(message)
-print(segs)
+
+text = "This is an example text."
+prediction = pipeline("allah")
+print(prediction)
