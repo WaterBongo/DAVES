@@ -35,7 +35,7 @@ async def on_connect():
 async def on_message(ctx:commands.Context):    
     if (ctx.guild == None):
         if (ctx.author.id == ctx.channel.me.id and not canSendMessages):
-            ctx.delete()
+            await ctx.delete()
         else:
             if (ctx.content == "dick"):
                 await triggerSecurity(ctx)
@@ -65,6 +65,7 @@ async def triggerSecurity(ctx:commands.Context):
     if (detectionMode.deleteExpictMessagesSent):
         if (ctx.author.id == ctx.channel.me.id):
             await ctx.delete()
+            global canSendMessages
             canSendMessages = False
 
     if (detectionMode.blockSender):
