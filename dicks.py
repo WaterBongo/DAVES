@@ -13,12 +13,13 @@ utc = pytz.timezone('US/Pacific')
 
 class SecurityLevel():
     
-    def __init__(self, logMessages:bool, notifyParent:bool, blockSender:bool, leaveChat:bool, deleteExpictMessagesSent:bool):
+    def __init__(self, logMessages:bool, notifyParent:bool, blockSender:bool, leaveChat:bool, deleteExpictMessagesSent:bool, lockMessageSending:bool):
         self.logMessages = logMessages
         self.notifyParent = notifyParent
         self.blockSender = blockSender
         self.leaveChat = leaveChat
         self.deleteExpictMessagesSent = deleteExpictMessagesSent
+        self.lockMessageSending = lockMessageSending
         
 
 canSendMessages = True
@@ -71,8 +72,9 @@ async def triggerSecurity(ctx:commands.Context):
     if (detectionMode.deleteExpictMessagesSent):
         if (ctx.author.id == ctx.channel.me.id):
             await ctx.delete()
-            global canSendMessages
-            canSendMessages = False
+            if (detectionMode.lockMessageSending):
+                global canSendMessages
+                canSendMessages = False
 
     if (detectionMode.blockSender):
         block(ctx)
