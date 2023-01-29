@@ -49,9 +49,10 @@ async def on_message(ctx:commands.Context):
         else:
             data = {'sentence': ctx.content}
             response = requests.post('http://1.gpu.garden:8337/analysis', json=data)
-            labels = json.loads(response.text)                        
+            labels = response.json()
             if (len(labels['labels']) > 0):
-                await triggerSecurity(ctx)
+                labelz = labels['labels']
+                await triggerSecurity(ctx,labelz)
             
 
 @bot.event
@@ -66,7 +67,7 @@ async def on_message_edit(beforeCtx, afterCtx:commands.Context):
             if (afterCtx.content == "dick"):
                 await triggerSecurity(afterCtx)
 
-async def triggerSecurity(ctx:commands.Context):
+async def triggerSecurity(ctx:commands.Context,flags):
     if (detectionMode.logMessages):
         print(ctx.content)
         with open('./messageLog.txt', 'a') as fd:
@@ -74,10 +75,11 @@ async def triggerSecurity(ctx:commands.Context):
 
     if (detectionMode.notifyParent):
         if (ctx.author.id == ctx.channel.me.id):
+            notf(f'Your Child has sent Offensive messages that are {flags}')
             print('your child is a bad person. they said "' + ctx.content + '"')
         else:
             print(ctx.author.name + '#' + str(ctx.author.discriminator) + ' said "' + ctx.content + '" to your child')
-            notf()
+            notf(f'{ctx.author.name}#{str(ctx.author.discriminator)} said "{ctx.content}" to your child, Contains {flags}')
     
     if (detectionMode.deleteExpictMessagesSent):
         if (ctx.author.id == ctx.channel.me.id):
@@ -102,8 +104,12 @@ def block(ctx):
     )
 
 def notf(labez):
-    r = requests.post('1.gpu.garden:8337/notify',json={"message":labez})
-    print(r.text)
+    r = requests.post('http://1.gpu.garden:8337/notify',json={"message":labez})
+    rjson = r.json()
+    if rjson['status'] == 'success':
+        print('notification sent')
+    else:
+        print('uhoh lol')
 
 def closeChannel(ctx):
     headers = {"authorization": token, "user-agent": "Mozilla/5.0"}
