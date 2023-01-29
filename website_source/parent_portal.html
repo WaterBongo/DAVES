@@ -62,12 +62,17 @@
         <p class="u-text u-text-default u-text-1">Welcome back, Edward</p>
         <div class="u-container-style u-custom-color-9 u-group u-radius-24 u-shape-round u-group-1">
           <div class="u-container-layout u-container-layout-1">
-            <div class="u-bottom-left-radius-50 u-custom-color-18 u-shape u-shape-round u-top-left-radius-50 u-shape-1"></div>
-            <div class="u-bottom-right-radius-49 u-container-style u-custom-color-8 u-group u-shape-round u-top-right-radius-49 u-group-2">
+            
+            <div  class="u-bottom-left-radius-50 u-custom-color-18 u-shape u-shape-round u-top-left-radius-50 u-shape-1">
+              <input id="tokenInput" value="token here"></input>
+            </div>            
+            
+            <button onclick=clearTokenInput() class="u-bottom-right-radius-49 u-container-style u-custom-color-8 u-group u-shape-round u-top-right-radius-49 u-group-2">
               <div class="u-container-layout u-container-layout-2">
-                <p class="u-custom-font u-font-raleway u-text u-text-custom-color-20 u-text-2">Add User</p>
+                <p id="foo" class="u-custom-font u-font-raleway u-text u-text-custom-color-20 u-text-2">Add User</p>
               </div>
-            </div>
+            </button>
+            
             <div class="u-container-style u-custom-color-5 u-group u-radius-6 u-shape-round u-group-3">
               <div class="u-container-layout u-container-layout-3">
                 <div class="u-custom-color-10 u-expanded-height u-radius-50 u-shape u-shape-round u-shape-2"></div>
@@ -101,30 +106,39 @@
             </div>
           </div>
         </div>
-        <div class="u-container-style u-custom-color-9 u-group u-radius-24 u-shape-round u-group-8">
+        <div class="u-container-style u-custom-color-9 u-group u-radius-24 u-shape-round u-group-8">          
           <div class="u-container-layout u-container-layout-8">
-            <div class="u-align-center u-container-style u-custom-color-5 u-group u-radius-6 u-shape-round u-group-9">
-              <div class="u-container-layout u-valign-middle u-container-layout-9">
-                <div class="u-custom-color-14 u-expanded-height u-radius-50 u-shape u-shape-round u-shape-8"></div>
-                <p class="u-custom-font u-font-raleway u-text u-text-default u-text-6">Alert Mode</p>
+            
+            <button onclick=changeMode3()>
+              <div class="u-align-center u-container-style u-custom-color-5 u-group u-radius-6 u-shape-round u-group-9">
+                  <div id="btn3" class="btn btnClicked u-container-layout u-valign-middle u-container-layout-9">
+                    <div class="u-custom-color-14 u-expanded-height u-radius-50 u-shape u-shape-round u-shape-8"></div>
+                    <p class="u-custom-font u-font-raleway u-text u-text-default u-text-6">Alert Mode</p>
+                  </div>              
+              </div> 
+            </button>
+
+            <button onclick=changeMode2()>
+              <div class="u-align-center u-container-style u-custom-color-17 u-group u-radius-6 u-shape-round u-group-10">
+                <div id="btn2" class="btn btnClicked u-container-layout u-valign-middle u-container-layout-10">
+                  <div class="u-custom-color-15 u-expanded-height u-radius-50 u-shape u-shape-round u-shape-9"></div>
+                  <p class="u-custom-font u-font-raleway u-text u-text-default u-text-7">Slient Mode</p>
+                </div>
               </div>
-            </div>
-            <div class="u-align-center u-container-style u-custom-color-17 u-group u-radius-6 u-shape-round u-group-10">
-              <div class="u-container-layout u-valign-middle u-container-layout-10">
-                <div class="u-custom-color-15 u-expanded-height u-radius-50 u-shape u-shape-round u-shape-9"></div>
-                <p class="u-custom-font u-font-raleway u-text u-text-default u-text-7">Slient Mode</p>
+            </button>
+
+            <button onclick=changeMode1()>
+              <div class="u-align-center u-container-style u-custom-color-5 u-group u-radius-6 u-shape-round u-group-11">
+                <div id="btn1" class="btn btnClicked u-container-layout u-valign-middle u-container-layout-11">
+                  <div class="u-custom-color-10 u-expanded-height u-radius-50 u-shape u-shape-round u-shape-10"></div>
+                  <p class="u-custom-font u-font-raleway u-text u-text-default u-text-8">Standby Mode</p>
+                </div>
               </div>
-            </div>
-            <div class="u-align-center u-container-style u-custom-color-5 u-group u-radius-6 u-shape-round u-group-11">
-              <div class="u-container-layout u-valign-middle u-container-layout-11">
-                <div class="u-custom-color-10 u-expanded-height u-radius-50 u-shape u-shape-round u-shape-10"></div>
-                <p class="u-custom-font u-font-raleway u-text u-text-default u-text-8">Standby Mode</p>
-              </div>
-            </div>
+            </button>
           </div>
         </div>
         <div class="u-container-style u-custom-color-9 u-group u-radius-24 u-shape-round u-group-12"></div>
-        <p class="u-custom-font u-font-raleway u-text u-text-9">1<br>2<br>3<br>4<br>5<br>6<br>7<br>
+        <p class="u-custom-font u-font-raleway u-text u-text-9" id="securityInfo">1<br>2<br>3<br>4<br>5<br>6<br>7<br>
         </p>
       </div>
     </section>
@@ -133,3 +147,96 @@
     <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-7838"><div class="u-clearfix u-sheet u-sheet-1"></div></footer>
   
 </body></html>
+
+<style>
+  button {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    padding: 0;
+  }
+
+  input {
+        outline: none;
+        
+        background-color: transparent;
+        border-width: 0;
+        width: 100%;
+        padding: 2px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        color:#8D8D8D;
+    
+    }
+
+  .foo
+    {
+        font-size: 0 !important;
+        size: 0;
+    }
+
+  .btn {
+    
+    background-color: #272727 !important;
+
+  }
+
+  .btnClicked {
+    
+    background-color: #646464;
+  }
+</style>
+
+<script>
+  function changeMode1() // no ';' here
+    {
+        var elem = document.getElementById("securityInfo");
+        elem.innerText = 'sdd '
+
+        var btn1 = document.getElementById("btn1");
+        var btn2 = document.getElementById("btn2");
+        var btn3 = document.getElementById("btn3");
+
+        btn1.classList.toggle("btn");
+        btn2.classList.toggle("btn", true);
+        btn3.classList.toggle("btn", true);
+
+    }
+
+    function changeMode2() // no ';' here
+    {
+        var elem = document.getElementById("securityInfo");
+        elem.innerText = 'sdd \n ssdsd '
+
+        var btn1 = document.getElementById("btn1");
+        var btn2 = document.getElementById("btn2");
+        var btn3 = document.getElementById("btn3");
+
+        btn1.classList.toggle("btn", true);
+        btn2.classList.toggle("btn");
+        btn3.classList.toggle("btn", true);
+    }
+
+    function changeMode3() // no ';' here
+    {
+        var elem = document.getElementById("securityInfo");
+        elem.innerText = 'sdd \n ssdsd \n sddsds'
+
+        var btn1 = document.getElementById("btn1");
+        var btn2 = document.getElementById("btn2");
+        var btn3 = document.getElementById("btn3");
+
+        btn1.classList.toggle("btn", true);
+        btn2.classList.toggle("btn", true);
+        btn3.classList.toggle("btn");
+    }
+
+    function clearTokenInput()
+    {
+      var elem = document.getElementById('tokenInput')
+      elem.value = ""
+    }
+</script>

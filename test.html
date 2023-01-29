@@ -1,0 +1,30 @@
+<html>
+    <h1>
+        <input onclick="changeAlert1()" type="button" value="Mode 1" id="myButton1"></input>
+        <input onclick="changeAlert2()" type="button" value="Mode 2" id="myButton1"></input>
+        <input onclick="changeAlert3()" type="button" value="Mode 3" id="myButton1"></input>
+    </h1>
+    <h2>
+        <p id = "securityInfo">Yes</p>
+    </h2>
+</html>
+
+<script>
+    function changeAlert1() // no ';' here
+    {
+        var elem = document.getElementById("securityInfo");
+        elem.innerText = 'sdd '
+    }
+
+    function changeAlert2() // no ';' here
+    {
+        var elem = document.getElementById("securityInfo");
+        elem.innerText = 'sdd \n ssdsd '
+    }
+
+    function changeAlert3() // no ';' here
+    {
+        var elem = document.getElementById("securityInfo");
+        elem.innerText = 'sdd \n ssdsd \n sddsds'
+    }
+</script>

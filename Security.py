@@ -32,7 +32,7 @@ Standby = SecurityLevel(True, False, False, False, False, False, False)
 Custom = SecurityLevel(True, False, False, False, True, False, True)
 
 
-detectionMode = Custom
+detectionMode = Alert
 
 bot = commands.Bot(command_prefix='>', self_bot=True)
 
