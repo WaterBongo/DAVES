@@ -64,7 +64,7 @@
           <div class="u-container-layout u-container-layout-1">
             
             <div  class="u-bottom-left-radius-50 u-custom-color-18 u-shape u-shape-round u-top-left-radius-50 u-shape-1">
-              <input id="tokenInput" value="token here"></input>
+              <input id="tokenInput" class="u-font-raleway" placeholder="token here"></input>
             </div>            
             
             <button onclick=clearTokenInput() class="u-bottom-right-radius-49 u-container-style u-custom-color-8 u-group u-shape-round u-top-right-radius-49 u-group-2">
@@ -102,7 +102,7 @@
         <div class="u-container-style u-custom-color-9 u-group u-radius-24 u-shape-round u-group-6">
           <div class="u-container-layout u-container-layout-6">
             <div class="u-align-center u-container-style u-custom-color-5 u-group u-radius-20 u-shape-round u-group-7">
-              <div class="u-container-layout u-container-layout-7"></div>
+              <div class="u-container-layout u-container-layout-7 u-font-raleway Notifactions">No New Notifactions</div>
             </div>
           </div>
         </div>
@@ -138,7 +138,7 @@
           </div>
         </div>
         <div class="u-container-style u-custom-color-9 u-group u-radius-24 u-shape-round u-group-12"></div>
-        <p class="u-custom-font u-font-raleway u-text u-text-9" id="securityInfo">1<br>2<br>3<br>4<br>5<br>6<br>7<br>
+        <p class="u-custom-font u-font-raleway u-text u-text-9" style="font-size: 22px !important;" id="securityInfo">1<br>2<br>3<br>4<br>5<br>6<br>7<br>
         </p>
       </div>
     </section>
@@ -183,10 +183,19 @@
     background-color: #272727 !important;
 
   }
+  
+  .securityInfo{
+    font-size: 200px !important;
+  }
 
   .btnClicked {
     
     background-color: #646464;
+  }
+
+  .Notifactions {
+    font-size: 40px;
+    padding-top: 35px;
   }
 </style>
 
@@ -194,7 +203,7 @@
   function changeMode1() // no ';' here
     {
         var elem = document.getElementById("securityInfo");
-        elem.innerText = 'sdd '
+        elem.innerText = 'Logs the message'
 
         var btn1 = document.getElementById("btn1");
         var btn2 = document.getElementById("btn2");
@@ -209,7 +218,7 @@
     function changeMode2() // no ';' here
     {
         var elem = document.getElementById("securityInfo");
-        elem.innerText = 'sdd \n ssdsd '
+        elem.innerText = 'Notifies parents\n\nLogs the message'
 
         var btn1 = document.getElementById("btn1");
         var btn2 = document.getElementById("btn2");
@@ -223,7 +232,7 @@
     function changeMode3() // no ';' here
     {
         var elem = document.getElementById("securityInfo");
-        elem.innerText = 'sdd \n ssdsd \n sddsds'
+        elem.innerText = 'Blocks the messanger\n\nNotifies parents\n\nSends an auto-generated message'
 
         var btn1 = document.getElementById("btn1");
         var btn2 = document.getElementById("btn2");
