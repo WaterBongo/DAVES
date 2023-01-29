@@ -30,13 +30,13 @@ Standby = SecurityLevel(True, False, False, False, False, False)
 Custom = SecurityLevel(True, False, False, False, True, True)
 
 
-detectionMode = Silent
+detectionMode = Alert
 
 bot = commands.Bot(command_prefix='>', self_bot=True)
 
 @bot.event
 async def on_connect():
-    print("Connected!")
+    print(bot.user)
 
 @bot.event
 async def on_message(ctx:commands.Context):    
