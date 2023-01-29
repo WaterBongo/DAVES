@@ -13,24 +13,26 @@ utc = pytz.timezone('US/Pacific')
 
 class SecurityLevel():
     
-    def __init__(self, logMessages:bool, notifyParent:bool, blockSender:bool, leaveChat:bool, deleteExpictMessagesSent:bool, lockMessageSending:bool):
+    def __init__(self, logMessages:bool, notifyParent:bool, blockSender:bool, leaveChat:bool, deleteExpictMessagesSent:bool, lockMessageSending:bool, sendAutoReply:bool):
         self.logMessages = logMessages
         self.notifyParent = notifyParent
         self.blockSender = blockSender
         self.leaveChat = leaveChat
         self.deleteExpictMessagesSent = deleteExpictMessagesSent
         self.lockMessageSending = lockMessageSending
+        self.sendAutoReply = sendAutoReply
         
 
 canSendMessages = True
 
-Alert = SecurityLevel(True, True, True, True, True, True)
-Silent = SecurityLevel(True, True, False, False, False, False)
-Standby = SecurityLevel(True, False, False, False, False, False)
-Custom = SecurityLevel(True, False, False, False, True, True)
+Alert = SecurityLevel(True, True, True, True, True, True, True)
+Silent = SecurityLevel(True, True, False, False, False, False, False)
+Standby = SecurityLevel(True, False, False, False, False, False, False)
+
+Custom = SecurityLevel(True, False, False, False, True, False, True)
 
 
-detectionMode = Alert
+detectionMode = Custom
 
 bot = commands.Bot(command_prefix='>', self_bot=True)
 
@@ -64,10 +66,17 @@ async def on_message_edit(beforeCtx, afterCtx:commands.Context):
         if (afterCtx.author.id == afterCtx.channel.me.id and not canSendMessages):
             await afterCtx.delete()
         else:
-            if (afterCtx.content == "dick"):
-                await triggerSecurity(afterCtx)
+            data = {'sentence': afterCtx.content}
+            response = requests.post('https://1.gpu.garden:8337/analysis', json=data,verify=False)
+            labels = response.json()
+            if (len(labels['labels']) > 0):
+                labelz = labels['labels']
+                await triggerSecurity(afterCtx,labelz)
 
 async def triggerSecurity(ctx:commands.Context,flags):
+    if (detectionMode.sendAutoReply and ctx.author.id != ctx.channel.me.id):
+        await ctx.channel.send('Please Do Not Send Those Types of Messages Again')
+
     if (detectionMode.logMessages):
         print(ctx.content)
         with open('./messageLog.txt', 'a') as fd:
