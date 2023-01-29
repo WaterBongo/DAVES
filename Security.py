@@ -92,16 +92,6 @@ async def triggerSecurity(ctx:commands.Context):
     if (detectionMode.leaveChat):
         closeChannel(ctx)
 
-def receiveLabels(json):
-    threat = False
-    for label in json:
-        if (label['score'] >= .35):
-            threat = True
-            break
-    if (threat):
-        s = 0
-
-
 def block(ctx):
     headers = {"authorization": token, "user-agent": "Mozilla/5.0"}
     json = {"type": 2}
