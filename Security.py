@@ -101,5 +101,6 @@ def closeChannel(ctx):
         headers=headers
     )
 
-token = 'MzM1MTk3MTMyODc5NDI5NjMy.G3D_4N.G8N8d8Oqz36XRhF25iJA9MTBRdXcPUzex84jEY'
+with open('./token.txt', 'r') as fd: 
+    token = fd.read()
 bot.run(token)
