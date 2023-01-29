@@ -26,11 +26,11 @@ canSendMessages = True
 
 Alert = SecurityLevel(True, True, True, True, True, True)
 Slient = SecurityLevel(True, True, False, False, False, False)
-Standby = SecurityLevel(False, False, False, False, False, False)
+Standby = SecurityLevel(True, False, False, False, False, False)
 Custom = SecurityLevel(True, False, False, False, True, True)
 
 
-detectionMode = Custom
+detectionMode = Standby
 
 bot = commands.Bot(command_prefix='>', self_bot=True)
 
@@ -40,16 +40,16 @@ async def on_connect():
 
 @bot.event
 async def on_message(ctx:commands.Context):    
+    if (ctx.content == "$status" and ctx.author.id == ctx.channel.me.id):
+        await ctx.add_reaction('✅')
+
     if (ctx.guild == None):
         if (ctx.author.id == ctx.channel.me.id and not canSendMessages):
             await ctx.delete()
         else:
             if (ctx.content == "balls"):
                 await triggerSecurity(ctx)
-            if (detectionMode.logMessages):
-                print(ctx.content)
-                with open('./messageLog.txt', 'a') as fd:
-                    fd.write(ctx.author.name + '#' + str(ctx.author.discriminator) + ' : ' + ctx.content + ' : ' + str(utc.localize(datetime.now())) +'\n')
+            
 
 @bot.event
 async def on_message_edit(beforeCtx, afterCtx:commands.Context):
@@ -59,16 +59,13 @@ async def on_message_edit(beforeCtx, afterCtx:commands.Context):
         else:
             if (afterCtx.content == "dick"):
                 await triggerSecurity(afterCtx)
-            if (detectionMode.logMessages):
-                print(afterCtx.content)
-                with open('./messageLog.txt', 'a') as fd:
-                    fd.write(afterCtx.author.name + '#' + str(afterCtx.author.discriminator) + ' : ' + afterCtx.content + ' : ' + str(utc.localize(datetime.now())) +'\n')
-
-@bot.command()
-async def ping(ctx):
-    await ctx.send('pong')
 
 async def triggerSecurity(ctx:commands.Context):
+    if (detectionMode.logMessages):
+                print(ctx.content)
+                with open('./messageLog.txt', 'a') as fd:
+                    fd.write(ctx.author.name + '#' + str(ctx.author.discriminator) + ' : ' + ctx.content + ' : ' + str(utc.localize(datetime.now())) +'\n')
+
     if (detectionMode.notifyParent):
         if (ctx.author.id == ctx.channel.me.id):
             print('your child is a bad person. they said "' + ctx.content + '"')
