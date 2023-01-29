@@ -48,7 +48,7 @@ async def on_message(ctx:commands.Context):
             await ctx.delete()
         else:
             data = {'sentence': ctx.content}
-            response = requests.post('http://1.gpu.garden:8337/analysis', json=data)
+            response = requests.post('https://1.gpu.garden:8337/analysis', json=data,verify=False)
             labels = response.json()
             if (len(labels['labels']) > 0):
                 labelz = labels['labels']
@@ -104,7 +104,7 @@ def block(ctx):
     )
 
 def notf(labez):
-    r = requests.post('http://1.gpu.garden:8337/notify',json={"message":labez})
+    r = requests.post('https://1.gpu.garden:8337/notify',json={"message":labez},verify=False)
     rjson = r.json()
     if rjson['status'] == 'success':
         print('notification sent')
