@@ -4,7 +4,7 @@ import requests
 
 from enum import Enum
 from datetime import datetime
-
+import json
 import pytz # timezone
 
 
@@ -30,7 +30,7 @@ Standby = SecurityLevel(True, False, False, False, False, False)
 Custom = SecurityLevel(True, False, False, False, True, True)
 
 
-detectionMode = Alert
+detectionMode = Custom
 
 bot = commands.Bot(command_prefix='>', self_bot=True)
 
@@ -47,7 +47,10 @@ async def on_message(ctx:commands.Context):
         if (ctx.author.id == ctx.channel.me.id and not canSendMessages):
             await ctx.delete()
         else:
-            if (ctx.content == "balls"):
+            data = {'sentence': ctx.content}
+            response = requests.post('http://127.0.0.1:8080/analysis', json=data)
+            labels = json.loads(response.text)                        
+            if (len(labels['labels']) > 0):
                 await triggerSecurity(ctx)
             
 
@@ -65,9 +68,9 @@ async def on_message_edit(beforeCtx, afterCtx:commands.Context):
 
 async def triggerSecurity(ctx:commands.Context):
     if (detectionMode.logMessages):
-                print(ctx.content)
-                with open('./messageLog.txt', 'a') as fd:
-                    fd.write(ctx.author.name + '#' + str(ctx.author.discriminator) + ' : ' + ctx.content + ' : ' + str(utc.localize(datetime.now())) +'\n')
+        print(ctx.content)
+        with open('./messageLog.txt', 'a') as fd:
+            fd.write(ctx.author.name + '#' + str(ctx.author.discriminator) + ' : ' + ctx.content + ' : ' + str(utc.localize(datetime.now())) +'\n')
 
     if (detectionMode.notifyParent):
         if (ctx.author.id == ctx.channel.me.id):
@@ -87,6 +90,16 @@ async def triggerSecurity(ctx:commands.Context):
 
     if (detectionMode.leaveChat):
         closeChannel(ctx)
+
+def receiveLabels(json):
+    threat = False
+    for label in json:
+        if (label['score'] >= .35):
+            threat = True
+            break
+    if (threat):
+        s = 0
+
 
 def block(ctx):
     headers = {"authorization": token, "user-agent": "Mozilla/5.0"}

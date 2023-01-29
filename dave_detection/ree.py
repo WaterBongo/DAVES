@@ -1,4 +1,5 @@
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, TextClassificationPipeline
+
 rand_insults = ['send me pussy picture', 'send me sexy picture', 'send me a dick picture']
 model = AutoModelForSequenceClassification.from_pretrained("unitary/toxic-bert",problem_type="multi_label_classification")
 tokenizer = AutoTokenizer.from_pretrained("unitary/toxic-bert")
