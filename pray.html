@@ -1,0 +1,54 @@
+<style>
+  .cell {
+    width: 150px;
+  }
+</style>
+<body>
+<table id="myTable">
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+  </tr>
+</table>
+<br>
+Name: <input type="text" id="nameInput">
+Age: <input type="text" id="ageInput">
+<button onclick="addRow()">Add Row</button>
+
+<script>
+  function addRow() {
+    // Get the input values
+    var name = document.getElementById("nameInput").value;
+    var age = document.getElementById("ageInput").value;
+
+    // Send the request
+    fetch('http://127.0.0.1:8080/data', {
+      method: 'POST',
+      body: JSON.stringify({name: name, age: age}),
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Get the table
+      var table = document.getElementById("myTable");
+
+      // Create a new row
+      var row = table.insertRow(-1);
+
+      // Insert cells
+      var nameCell = row.insertCell(0);
+      var ageCell = row.insertCell(1);
+      
+      // Add the class to the cells
+      nameCell.classList.add("cell");
+      ageCell.classList.add("cell");
+
+      // Add the input values to the cells
+      nameCell.innerHTML = name;
+      ageCell.innerHTML = age;
+    });
+  }
+</script>
+
+
+</body>
