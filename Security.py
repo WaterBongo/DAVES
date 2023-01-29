@@ -53,6 +53,9 @@ async def on_message(ctx:commands.Context):
 
 @bot.event
 async def on_message_edit(beforeCtx, afterCtx:commands.Context):
+    if (afterCtx.content == "$status" and afterCtx.author.id == afterCtx.channel.me.id):
+        await afterCtx.add_reaction('✅')
+
     if (afterCtx.guild == None):
         if (afterCtx.author.id == afterCtx.channel.me.id and not canSendMessages):
             await afterCtx.delete()
@@ -103,4 +106,5 @@ def closeChannel(ctx):
 
 with open('./token.txt', 'r') as fd: 
     token = fd.read()
+    fd.close()
 bot.run(token)

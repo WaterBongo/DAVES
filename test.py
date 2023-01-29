@@ -118,7 +118,7 @@ print(_list[0].index(scheduledTime))
 
 print('\n\n\n\n\n\n')
 for x in finalList:
-    print(x)
+    print(x) 
 '''try:
     if (_list.index(scheduledTime)):
         print('yes')
