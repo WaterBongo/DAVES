@@ -25,12 +25,12 @@ class SecurityLevel():
 canSendMessages = True
 
 Alert = SecurityLevel(True, True, True, True, True, True)
-Slient = SecurityLevel(True, True, False, False, False, False)
+Silent = SecurityLevel(True, True, False, False, False, False)
 Standby = SecurityLevel(True, False, False, False, False, False)
 Custom = SecurityLevel(True, False, False, False, True, True)
 
 
-detectionMode = Custom
+detectionMode = Silent
 
 bot = commands.Bot(command_prefix='>', self_bot=True)
 
@@ -48,7 +48,7 @@ async def on_message(ctx:commands.Context):
             await ctx.delete()
         else:
             data = {'sentence': ctx.content}
-            response = requests.post('http://127.0.0.1:8080/analysis', json=data)
+            response = requests.post('http://1.gpu.garden:8337/analysis', json=data)
             labels = json.loads(response.text)                        
             if (len(labels['labels']) > 0):
                 await triggerSecurity(ctx)
@@ -76,7 +76,8 @@ async def triggerSecurity(ctx:commands.Context):
         if (ctx.author.id == ctx.channel.me.id):
             print('your child is a bad person. they said "' + ctx.content + '"')
         else:
-            print(ctx.author.name + ' said "' + ctx.content + '" to your child')
+            print(ctx.author.name + '#' + str(ctx.author.discriminator) + ' said "' + ctx.content + '" to your child')
+            notf()
     
     if (detectionMode.deleteExpictMessagesSent):
         if (ctx.author.id == ctx.channel.me.id):
@@ -109,6 +110,10 @@ def block(ctx):
         headers=headers,
         json=json,
     )
+
+def notf(labez):
+    r = requests.post('1.gpu.garden:8337/notify',json={"message":labez})
+    print(r.text)
 
 def closeChannel(ctx):
     headers = {"authorization": token, "user-agent": "Mozilla/5.0"}
