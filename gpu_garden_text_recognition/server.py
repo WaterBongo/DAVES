@@ -1,7 +1,7 @@
 import flask
+from flask_cors import CORS
 from flask import request
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, TextClassificationPipeline
-rand_insults = ['send me pussy picture', 'send me sexy picture', 'send me a dick picture']
 model = AutoModelForSequenceClassification.from_pretrained("unitary/toxic-bert",problem_type="multi_label_classification")
 tokenizer = AutoTokenizer.from_pretrained("unitary/toxic-bert")
 import smtplib, ssl
@@ -13,7 +13,7 @@ import time
 import json
 
 app = flask.Flask('DAVEs')
-
+CORS(app)
 @app.route('/')
 def home_dir():
     return 'hello world'    
@@ -65,4 +65,4 @@ def analysis():
 
 
 
-app.run('0.0.0.0',8080)
+app.run('0.0.0.0',8080,ssl_context='adhoc')

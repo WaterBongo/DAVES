@@ -84,34 +84,64 @@
   background-color: #fd9d61;
   color: white;
 } </style>
-          <button class="button button1" onclick="alert('penis')">Check! </button>
+          <button class="button button1" onclick="addRow()">Check!</button>
+          <script> function addRow() {
+    // Get the input values
+    var sentence = document.getElementById("sentence_input").value;
+    // Send the request
+    fetch('https://1.gpu.garden:8337/analysis', {
+      method: 'POST',
+      body: JSON.stringify({sentence: sentence}),
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Get the table
+      var table = document.getElementById("myTable");
+      var labels = data.labels;
+      var row = table.insertRow(-1);
+      // Insert cells
+      var nameCell = row.insertCell(0);
+      var ageCell = row.insertCell(1);
+      
+      // Add the class to the cells
+      nameCell.classList.add("cell");
+      // Add the input values to the cells
+      nameCell.innerHTML = sentence;
+      ageCell.innerHTML = labels;
+    });
+  } </script>
         </div>
         <div class="u-clearfix u-custom-html u-custom-html-2">
-          <input placeholder="Sentence for anylsise" id="sentence_input" name="email" class="u-border-no-bottom u-border-no-left u-border-no-right u-border-no-top u-custom-color-7 u-input u-input-rectangle" required="required" type="text" autofocus="autofocus" width="20px">
+          <input placeholder="Sentence for anylsis!" id="sentence_input" name="email" class="u-border-no-bottom u-border-no-left u-border-no-right u-border-no-top u-custom-color-7 u-input u-input-rectangle" required="required" type="text" autofocus="autofocus" width="20px">
         </div>
       </div>
     </section>
     <section class="u-clearfix u-custom-color-1 u-section-2" id="sec-b56c">
       <div class="u-clearfix u-sheet u-sheet-1">
-        <div class="u-clearfix u-custom-html u-custom-html-1">
+        <div class="auto margin u-clearfix u-custom-html u-custom-html-1">
           <style> .cell {
-    width: 150px;
-    border: 1px solid rgb(55, 55, 55);
+    width: 900px;
+    border: 1px solid rgb(255, 255, 255);
   }
   table{
     border: 1px solid rgb(255, 255, 255);
-    border-collapse: collapse;
+    border-collapse: seperate;
     margin: 0 auto;
   } </style>
           <table id="myTable">
             <tbody>
+              <tr></tr>
+            </tbody>
+          </table>
+          <table id="myTable">
+            <tbody>
               <tr>
-                <th>Name</th>
-                <th>Age</th>
+                <th>Sentence</th>
+                <th>Identifiers</th>
               </tr>
             </tbody>
           </table>
-          <br>
         </div>
       </div>
     </section>
