@@ -24,13 +24,13 @@
 .u-section-1 .u-custom-html-1 {
   height: auto;
   min-height: 55px;
-  margin: 8px 237px 0 793px;
+  margin: 9px 237px 0 793px;
 }
 
 .u-section-1 .u-custom-html-2 {
   height: auto;
   min-height: 45px;
-  margin: -49px 360px 29px 326px;
+  margin: -50px 360px 29px 326px;
 }
 
 @media (max-width: 1199px) {
@@ -71,6 +71,7 @@
   }
 
   .u-section-1 .u-custom-html-2 {
+    margin-top: 20px;
     margin-right: 150px;
     margin-left: 116px;
   }
