@@ -1,5 +1,8 @@
 # DAVES: The AI Safety Assistant
 
+## 2nd Place Bay Area!
+
+
 DAVES (Digital Assistant for Virtual Environment Safety) is a Safety assistant that runs off of a powerful AI. Using advanced natural language processing and machine learning, DAVES has learned to detect keywords and patterns that indicate dangerous situations. DAVES will take the necessary steps required to keep you safe!
 
 ## Key Features
